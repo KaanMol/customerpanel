@@ -1,0 +1,15 @@
+{
+	"recommendations": [
+		"stripe.vscode-stripe",
+		"ms-vsliveshare.vsliveshare-pack",
+		"nrwl.angular-console",
+		"Prisma.prisma",
+		"bradlc.vscode-tailwindcss",
+		"austenc.tailwind-docs",
+		"bourhaouta.tailwindshades",
+		"alfredbirk.tailwind-documentation",
+		"christian-kohler.npm-intellisense",
+		"IbrahimCesar.ibrahimcesar-nextjs-developer-pack",
+		"firsttris.vscode-jest-runner"
+	]
+}

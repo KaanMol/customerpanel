@@ -1,0 +1,43 @@
+---
+version: "3.2"
+
+services:
+    mailhog:
+        container_name: customerpanel_mailhog
+        image: mailhog/mailhog:latest
+        ports:
+            - 1025:1025
+            - 8025:8025
+    nestjs:
+        container_name: customerpanel_node
+        build: .
+        command: /bin/bash -c 'npm install'
+        volumes:
+            - .:/app
+        ports:
+            - 3333:3000
+    stripemock:
+        container_name: customerpanel_stripemock
+        image: stripemock/stripe-mock:latest
+        ports:
+            - 12111:12111
+            - 12112:12112
+    postgresql:
+        container_name: customerpanel_postgresql
+        image: postgres:12-alpine
+        environment:
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_USER=user
+            - POSTGRES_DB=database
+    pgadmin:
+        container_name: customerpanel_pgadmin
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: root
+        ports:
+            - "5050:80"
+
+volumes:
+    database:
+        driver: local

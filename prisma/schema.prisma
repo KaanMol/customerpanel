@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id        String
+    tenants   Tenant      @relation(name: "UserTenant", fields: [tenantId], references: [id])
+    tenantId  Int
+    UserRoles UserRoles[]
+
+    @@id([id, tenantId])
+}
+
+model Tenant {
+    id       Int      @id @default(autoincrement())
+    parentId Int?
+    parent   Tenant?  @relation("ParentChildren", fields: [parentId], references: [id])
+    Tenants  Tenant[] @relation("ParentChildren")
+    roles    Role[]
+    users    User[]   @relation("UserTenant")
+}
+
+model UserRoles {
+    user     User   @relation(fields: [userId, tenantId], references: [id, tenantId])
+    userId   String
+    tenantId Int
+    role     Role   @relation(fields: [roleId], references: [id])
+    roleId   Int
+
+    @@id([userId, roleId])
+}
+
+model Role {
+    id          Int          @id @default(autoincrement())
+    type        Int
+    value       String
+    tenant      Tenant       @relation(fields: [tenantId], references: [id])
+    tenantId    Int
+    permissions Permission[] @relation("RolePermissions")
+    UserRoles   UserRoles[]
+}
+
+model Permission {
+    id         Int      @id @default(autoincrement())
+    action     String
+    subject    String
+    fields     String[]
+    conditions Json?
+    inverted   Boolean
+    system     Boolean
+    roles      Role[]   @relation("RolePermissions")
+}
+
+model Records {
+    id       Int           @id @default(autoincrement())
+    ip       String?
+    name     String
+    value    String
+    ttl      Int           @default(3600)
+    type     DnsRecordType
+    Domain   Domain?       @relation(fields: [domainId], references: [id])
+    domainId Int?
+}
+
+enum DnsRecordType {
+    A
+    AAAA
+    CNAME
+}
+
+model Domain {
+    id        Int              @id @default(autoincrement())
+    name      String
+    extension DomainExtensions
+    records   Records[]
+}
+
+enum DomainExtensions {
+    nl
+    com
+    dev
+}
