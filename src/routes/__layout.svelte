@@ -1,18 +1,57 @@
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
 	import '../app.css';
+	import { fly } from 'svelte/transition';
+	import { elasticOut } from 'svelte/easing';
+	let visible = false;
+
+	function swoop() {
+		return {
+			duration: 1000,
+			easing: elasticOut,
+			css: (t, u) => `transform: scale(${t}) translateX(${u * 100}%)`
+		};
+	}
 </script>
 
 <Header />
-
+<!-- <Header /> -->
 <main>
 	<slot />
 </main>
+
+<label>
+	<input type="checkbox" bind:checked={visible} />
+	visible
+</label>
+{#if visible}
+	<div class="menu" transition:swoop>
+		<label>
+			<input type="checkbox" bind:checked={visible} />
+			visible
+		</label>
+	</div>
+{/if}
 
 <!-- <footer>
 	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
 </footer> -->
 <style>
+	/* * {
+		box-sizing: content-box;
+		width: 100%;
+	} */
+	body {
+		overflow: none;
+	}
+	.menu {
+		height: 100%;
+		background: red;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		color: white;
+	}
 	/* main {
 		flex: 1;
 		display: flex;
