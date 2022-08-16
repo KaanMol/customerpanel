@@ -7,6 +7,7 @@
 	import axios from 'axios';
 
 	type Record = {
+		id?: number;
 		name: string;
 		type: string;
 		value: string;
@@ -36,6 +37,13 @@
 			}
 		];
 	}
+
+	function removeRecord(index: number, record: Record) {
+		if (record.id === undefined) {
+			$recordsStore.splice(index, 1);
+			$recordsStore = $recordsStore;
+		}
+	}
 </script>
 
 <!-- <DnsRecordCreate /> -->
@@ -46,7 +54,7 @@
 	</div>
 
 	<div class="records">
-		{#each $recordsStore as record}
+		{#each $recordsStore as record, i}
 			<div class="record">
 				<div class="row name">
 					<span>Name</span>
@@ -69,7 +77,7 @@
 				</div>
 
 				<div class="row remove">
-					<button>Remove Record</button>
+					<button on:click={() => removeRecord(i, record)}>Remove Record</button>
 				</div>
 			</div>
 		{/each}

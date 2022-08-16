@@ -38,3 +38,7 @@ export const POST: RequestHandler = async ({ params, request }) => {
         body: postedRecords
     };
 };
+
+export const DELETE: RequestHandler = async ({ params, request }) => {
+
+}
