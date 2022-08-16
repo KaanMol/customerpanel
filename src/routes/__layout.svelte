@@ -1,26 +1,24 @@
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
-	import '../app.css';
-	import { fly } from 'svelte/transition';
-	import { elasticOut } from 'svelte/easing';
-	let visible = false;
+	import '../app.scss';
 
-	function swoop() {
-		return {
-			duration: 1000,
-			easing: elasticOut,
-			css: (t, u) => `transform: scale(${t}) translateX(${u * 100}%)`
-		};
-	}
+	// function swoop() {
+	// 	return {
+	// 		duration: 1000,
+	// 		easing: elasticOut,
+	// 		css: (t, u) => `transform: scale(${t}) translateX(${u * 100}%)`
+	// 	};
+	// }
 </script>
 
 <Header />
+<!-- <button on:click={() => appAuth.getSes?sion()}></button> -->
 <!-- <Header /> -->
 <main>
 	<slot />
 </main>
 
-<label>
+<!-- <label>
 	<input type="checkbox" bind:checked={visible} />
 	visible
 </label>
@@ -31,7 +29,7 @@
 			visible
 		</label>
 	</div>
-{/if}
+{/if} -->
 
 <!-- <footer>
 	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
@@ -42,16 +40,22 @@
 		width: 100%;
 	} */
 	body {
-		overflow: none;
+		/* display: grid;
+		grid-template-columns: 1fr min-content; */
+	}
+
+	nav {
+		/* grid-column: 2; */
 	}
 	.menu {
-		height: 100%;
+		/* height: 100%;
 		background: red;
 		position: absolute;
 		top: 0;
 		width: 100%;
-		color: white;
+		color: white; */
 	}
+
 	/* main {
 		flex: 1;
 		display: flex;
