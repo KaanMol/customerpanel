@@ -1,7 +1,7 @@
 import OpenProviderConfig from "../../config/openprovider.config"
 import { CustomerExtension } from "./customer";
 import { DomainExtension } from "./domain";
-import { AxiosResponse } from "axios";
+import type { AxiosResponse } from "axios";
 import { DnsExtension } from "./dns/";
 import { Bridge } from "./common";
 
@@ -12,9 +12,9 @@ export class OpenProvider extends Bridge {
 
     constructor() {
         super({
-            baseURL: OpenProviderConfig.API_ENDPOINT,
-
+            baseURL: OpenProviderConfig.API_ENDPOINT
         });
+
     }
 
     protected async connect(): Promise<void> {

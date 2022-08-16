@@ -1,4 +1,4 @@
-import { BooleanResponse, BridgeExtension, ListResponse, SingleResponse, ZoneCreateBody, ZoneListParameters, ZoneRecord, ZoneSingleParameters, ZoneUpdateBody } from "../common";
+import { BooleanResponse, BridgeExtension, ListResponse, SingleResponse, ZoneCreateBody, ZoneListParameters, ZoneRecord, ZoneSingleParameters, ZoneUpdateBody, type ZoneResult } from "../common";
 import { DnsZoneRecordsExtension } from "./record";
 
 export class DnsZoneExtension extends BridgeExtension {
@@ -9,9 +9,9 @@ export class DnsZoneExtension extends BridgeExtension {
      * @param parameters Options to filter the list of DNS Zones
      * @returns List of all the DNS Zones
      */
-    async list(parameters?: Partial<ZoneListParameters>): Promise<ListResponse<ZoneRecord>> {
+    async list(parameters?: Partial<ZoneListParameters>): Promise<ListResponse<ZoneResult>> {
+        console.log(`dns/zones?${this.getQueryString(parameters)}`)
         const zoneList = await this.httpClient.get(`dns/zones?${this.getQueryString(parameters)}`);
-
         return zoneList.data;
     }
 

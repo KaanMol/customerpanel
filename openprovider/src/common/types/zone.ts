@@ -38,7 +38,7 @@ export type ZoneResult = {
     name: string;
     premium_dns: PremiumDnsData;
     provider: string;
-    records: ZoneRecord[];
+    records?: ZoneRecord[];
     reseller_id: number;
     type: string;
 };
