@@ -1,7 +1,8 @@
 import type { RequestHandler } from "@sveltejs/kit";
-import { createRecordByTld, getRecordsByTld, updateRecordById } from "../../../handlers/domains";
+import { createRecordByTld, deleteRecordById, getRecordsByTld, updateRecordById } from "../../../handlers/domains";
 import { page } from '$app/stores';
 import { openProvider } from "../../../../openprovider/src";
+import { prisma } from "@prisma/client";
 
 export const GET: RequestHandler = async ({ params }) => {
     const result = await getRecordsByTld(params.domain);
@@ -20,7 +21,7 @@ export const POST: RequestHandler = async ({ params, request }) => {
             postedRecords.push(await createRecordByTld(params.domain, record));
         }
     }
-    // const result = await crxeateRecordByTld(params.domain, await request.json());
+
     setTimeout(async () => {
         try {
             records.map(record => {
@@ -40,5 +41,27 @@ export const POST: RequestHandler = async ({ params, request }) => {
 };
 
 export const DELETE: RequestHandler = async ({ params, request }) => {
+    const record = await request.json();
+    try {
+        await deleteRecordById(record.id);
+    } catch (e) {
+        console.log(e)
+    }
 
+
+    setTimeout(async () => {
+        record.name = record.name.replace(params.domain, "");
+
+        try {
+            const result = await openProvider.dns.zone.records.remove(params.domain, [record]);
+            console.log(result);
+        } catch (e) {
+            console.log(e)
+        }
+
+    }, 1)
+
+    return {
+        body: true
+    }
 }

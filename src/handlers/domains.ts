@@ -61,3 +61,20 @@ export async function updateRecordById(id: number, record: { name: string, type:
         }
     })
 }
+
+export async function deleteRecordById(id: number) {
+    let deleted;
+
+    try {
+        deleted = await prisma.records.delete({
+            where: {
+                id
+            }
+        });
+    } catch (e) {
+        console.log(e)
+    }
+
+
+    return deleted;
+}

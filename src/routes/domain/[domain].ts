@@ -1,5 +1,5 @@
 import type { RequestHandler } from "@sveltejs/kit";
-import { getRecordsByTld } from "../../../handlers/domains";
+import { getRecordsByTld } from "$lib/../handlers/domains";
 
 export const GET: RequestHandler = async ({ params }) => {
 

@@ -1,5 +1,5 @@
 import type { RequestHandler } from "@sveltejs/kit";
-import { getDomainList } from "../../../handlers/domains";
+import { getDomainList } from "$lib/../handlers/domains";
 
 export const GET: RequestHandler = async ({ locals }) => {
     const response = await getDomainList();

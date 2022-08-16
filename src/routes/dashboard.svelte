@@ -1,4 +1,4 @@
-<h1>hi!</h1>
+<h1>Dashboard is coming soon...</h1>
 
 <style lang="scss">
 	h1 {

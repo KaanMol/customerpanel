@@ -1,4 +1,4 @@
-<h1>hi from invoices!</h1>
+<h1>Invoices is coming soon...</h1>
 
 <style lang="scss">
 	h1 {

@@ -38,11 +38,17 @@
 		];
 	}
 
-	function removeRecord(index: number, record: Record) {
-		if (record.id === undefined) {
-			$recordsStore.splice(index, 1);
-			$recordsStore = $recordsStore;
+	async function removeRecord(index: number, record: Record) {
+		if (record.id !== undefined) {
+			const result = await axios.delete(`/api/${$page.params.domain}/records`, {
+				data: record
+			});
+
+			console.log(result);
 		}
+
+		$recordsStore.splice(index, 1);
+		$recordsStore = $recordsStore;
 	}
 </script>
 
@@ -90,100 +96,110 @@
 </div>
 
 <style lang="scss">
-	.new-record {
-		grid-column: span auto / -1;
+	@mixin for-phone-only {
+		@media (max-width: 599px) {
+			@content;
+		}
 	}
-
-	.add-record {
-		grid-column: span auto / -1;
+	@mixin for-tablet-portrait-up {
+		@media (min-width: 600px) {
+			@content;
+		}
 	}
-
-	@media (min-width: 800px) {
-		.page {
+	@mixin for-tablet-landscape-up {
+		@media (min-width: 900px) {
+			@content;
+		}
+	}
+	@mixin for-desktop-up {
+		@media (min-width: 1200px) {
+			@content;
+		}
+	}
+	@mixin for-big-desktop-up {
+		@media (min-width: 1800px) {
+			@content;
+		}
+	}
+	.page {
+		@include for-tablet-portrait-up() {
 			display: grid;
 			grid-template-columns: 15% 1fr 15%;
+
+			.title {
+				grid-column: 2;
+			}
+
 			.records {
 				border-radius: 12px;
 				grid-column: 2;
 			}
 		}
-	}
-	input {
-		box-sizing: border-box;
-		width: 100%;
-		background: rgba(255, 255, 255, 0.1);
-		border: none;
-		outline: 0;
-		color: white;
-		padding: 10px 15px;
-		border-radius: 8px;
-	}
 
-	.records {
-		/* background: ; */
-		margin-bottom: 15px;
-		padding: 15px;
-
-		.record {
-			color: white;
-			background: #161618;
-			display: grid;
-			grid-template-rows: auto;
-			grid-template-columns: 1fr 1fr;
-			gap: 15px;
+		.records {
 			margin-bottom: 15px;
 			padding: 15px;
-			border-radius: 12px;
-
-			& > div {
-				box-sizing: border-box;
-				width: 100%;
-				span {
-					font-weight: bold;
-					margin-bottom: 5px;
-					opacity: 0.7;
-				}
-			}
-
-			.row {
-				display: grid;
-				grid-template-rows: auto;
-				grid-column: 1 / 3;
-
-				&.ttl {
-					grid-column: 2;
-				}
-
-				&.type {
-					grid-column: 1;
-				}
-			}
-		}
-
-		@media (min-width: 650px) {
-			display: grid;
-			grid-template-columns: 15% 1fr 15%;
 
 			.record {
-				grid-column: 2;
-			}
-		}
+				color: white;
+				background: #161618;
+				display: grid;
+				grid-template-rows: auto;
+				grid-template-columns: 1fr 1fr;
+				gap: 15px;
+				margin-bottom: 15px;
+				padding: 15px;
+				border-radius: 12px;
 
-		@media (min-width: 800px) {
-			grid-template-columns: auto;
-			background: #161618;
-			& > .record {
-				margin-bottom: 0;
-				background: none;
-				border-radius: 0;
-				grid-template-columns: 2fr 1fr 1fr 2fr;
-				.row {
-					grid-column: unset;
-					&.ttl {
-						grid-column: unset;
+				& > div {
+					box-sizing: border-box;
+					width: 100%;
+					span {
+						font-weight: bold;
+						margin-bottom: 5px;
+						opacity: 0.7;
 					}
+				}
+
+				.row {
+					display: grid;
+					grid-template-rows: auto;
+					grid-column: 1 / 3;
+
+					&.ttl {
+						grid-column: 2;
+					}
+
 					&.type {
+						grid-column: 1;
+					}
+
+					&.new-record {
+						grid-column: span auto / -1;
+					}
+
+					&.add-record {
+						grid-column: span auto / -1;
+					}
+				}
+			}
+
+			@include for-tablet-landscape-up() {
+				grid-template-columns: auto;
+				background: #161618;
+				& > .record {
+					margin-bottom: 0;
+					background: none;
+					border-radius: 0;
+					grid-template-columns: 2fr 1fr 1fr 2fr min-content;
+					.row {
 						grid-column: unset;
+						&.ttl {
+							grid-column: unset;
+						}
+						&.type {
+							grid-column: unset;
+						}
 					}
 				}
 			}

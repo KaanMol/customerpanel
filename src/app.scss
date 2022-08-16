@@ -17,107 +17,91 @@
 	--background: rgba(0, 0, 0, 1);
 }
 
-body {
+@mixin for-phone-only {
+	@media (max-width: 599px) {
+		@content;
+	}
+}
+@mixin for-tablet-portrait-up {
+	@media (min-width: 600px) {
+		@content;
+	}
+}
+@mixin for-tablet-landscape-up {
+	@media (min-width: 900px) {
+		@content;
+	}
+}
+@mixin for-desktop-up {
+	@media (min-width: 1200px) {
+		@content;
+	}
+}
+@mixin for-big-desktop-up {
+	@media (min-width: 1800px) {
+		@content;
+	}
+}
 
+body {
 	min-height: 100vh;
+	max-height: 100vh;
 	margin: 0;
 	background-color: var(--background);
 
+	@include for-desktop-up() {
+		display: grid;
+		grid-template-columns: 300px 1fr;
+		grid-template-rows: 70px 1fr;
+
+		.menu {
+			position: fixed;
+			grid-row: 2;
+		}
+
+		main {
+			overflow: auto;
+			grid-column: 2;
+			grid-row: 1/-1;
+		}
+	}
 }
 
 nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+
+	@include for-desktop-up() {
+		top: 0;
+		left: 0;
+		bottom: unset;
+	}
 }
 
 main {
-    margin-bottom: 70px;
-}
-
-
-	.title {
-		color: white;
-		font-weight: bold;
-		font-size: 26px;
-		margin-left: 15px;
-		margin-top: 20px;
+	margin-bottom: 70px;
+	@include for-desktop-up() {
+		padding-top: 70px;
+		margin-bottom: 0;
 	}
-    
-/* body::before {
-	content: '';
-	width: 80vw;
-	height: 100vh;
-	position: absolute;
-	top: 0;
-	left: 10vw;
-	z-index: -1;
-	background: radial-gradient(
-		50% 50% at 50% 50%,
-		var(--pure-white) 0%,
-		rgba(255, 255, 255, 0) 100%
-	);
-	opacity: 0.05;
 }
 
-#svelte {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
+.title {
+	color: white;
+	font-weight: bold;
+	font-size: 26px;
+	margin-left: 15px;
+	margin-top: 20px;
 }
 
-h1,
-h2,
-p {
-	font-weight: 400;
-	color: var(--heading-color);
+input {
+	box-sizing: border-box;
+	width: 100%;
+	background: rgba(255, 255, 255, 0.1);
+	border: none;
+	outline: 0;
+	color: white;
+	padding: 10px 15px;
+	border-radius: 8px;
 }
-
-p {
-	line-height: 1.5;
-}
-
-a {
-	color: var(--accent-color);
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-h1 {
-	font-size: 2rem;
-	text-align: center;
-}
-
-h2 {
-	font-size: 1rem;
-}
-
-pre {
-	font-size: 16px;
-	font-family: var(--font-mono);
-	background-color: rgba(255, 255, 255, 0.45);
-	border-radius: 3px;
-	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
-	padding: 0.5em;
-	overflow-x: auto;
-	color: var(--text-color);
-}
-
-input,
-button {
-	font-size: inherit;
-	font-family: inherit;
-}
-
-button:focus:not(:focus-visible) {
-	outline: none;
-}
-
-@media (min-width: 720px) {
-	h1 {
-		font-size: 2.4rem;
-	}
-} */

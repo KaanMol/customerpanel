@@ -19,7 +19,7 @@
 	<div class="title">Domains</div>
 	<div class="domains">
 		{#each domains as domain}
-			<div class="domain" on:click={() => goto(`/smt/domain/${domain.name}.${domain.extension}`)}>
+			<div class="domain" on:click={() => goto(`/domain/${domain.name}.${domain.extension}`)}>
 				{domain.name}.{domain.extension}
 			</div>
 		{/each}
