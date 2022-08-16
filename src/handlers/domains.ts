@@ -47,3 +47,17 @@ export async function createRecordByTld(_tld: string, record: { name: string, ty
         }
     })
 }
+
+export async function updateRecordById(id: number, record: { name: string, type: string, value: string, ttl: number }) {
+    return await prisma.records.update({
+        where: {
+            id
+        },
+        data: {
+            name: record.name,
+            type: DnsRecordType[record.type as keyof typeof DnsRecordType],
+            value: record.value,
+            ttl: record.ttl
+        }
+    })
+}
