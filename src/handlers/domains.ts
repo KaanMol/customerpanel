@@ -16,7 +16,7 @@ export async function getRecordsByTld(_tld: string) {
     const domain = await prisma.domain.findFirst({
         where: {
             name: tld[0],
-            extension: DomainExtensions["nl"]
+            extension: DomainExtensions[tld[0] as keyof typeof DomainExtensions]
         }
     });
 
@@ -33,7 +33,7 @@ export async function createRecordByTld(_tld: string, record: { name: string, ty
     const domain = await prisma.domain.findFirst({
         where: {
             name: tld[0],
-            extension: DomainExtensions["nl"]
+            extension: DomainExtensions[tld[0] as keyof typeof DomainExtensions]
         }
     });
 
