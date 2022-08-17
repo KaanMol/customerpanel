@@ -74,6 +74,15 @@ enum DnsRecordType {
     A
     AAAA
     CNAME
+    MX
+    SPF
+    SRV
+    TXT
+    NS
+    TLSA
+    SSHFP
+    CAA
+    SOA
 }
 
 model Domain {
@@ -87,4 +96,7 @@ enum DomainExtensions {
     nl
     com
     dev
+    co
+    group
+    app
 }
