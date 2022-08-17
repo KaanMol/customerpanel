@@ -3,10 +3,11 @@
 
 	import { page } from '$app/stores';
 	import Menu from '../../assets/icons/menu.svelte';
-	import logo from './svelte-logo.svg';
+	// import logo from './svelte-logo.svg';
 	import { fly } from 'svelte/transition';
 	import { elasticOut } from 'svelte/easing';
 	import { onMount } from 'svelte';
+	import logo from '../logo-white.png';
 
 	let visible = false;
 	let innerWidth = 0;
@@ -15,14 +16,17 @@
 <svelte:window bind:innerWidth />
 
 <nav>
+	<img src={logo} alt="SvelteKit" />
 	<!-- <div class="background">d</div> -->
 	<button on:click={() => goto('/dashboard')}>Dashboard</button>
 	<button on:click={() => goto('/invoices')}>Invoices</button>
-	<button on:click={() => (visible = true)}>Menu</button>
+	<button class="menubutton" on:click={() => (visible = true)}>Menu</button>
 </nav>
 
 {#if visible || innerWidth > 1200}
 	<div class="menu" transition:fly={{ x: -1300, duration: 1000, opacity: 1 }}>
+		<img src={logo} alt="SvelteKit" />
+
 		<h1>hi from menu!</h1>
 		<button on:click={() => (visible = false)}>Close this crap</button>
 		<button
@@ -60,6 +64,32 @@
 			@content;
 		}
 	}
+	nav {
+		.menubutton {
+			@include for-desktop-up() {
+				display: none;
+			}
+		}
+		img {
+			height: 50px;
+			justify-self: baseline;
+			margin-left: 20px;
+			display: none;
+
+			@include for-desktop-up() {
+				display: unset;
+			}
+		}
+	}
+	.menu {
+		img {
+			height: 50px;
+			@include for-desktop-up() {
+				display: none;
+			}
+		}
+	}
+
 	h1 {
 		color: white;
 	}

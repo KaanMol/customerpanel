@@ -27,6 +27,31 @@
 </div>
 
 <style lang="scss">
+	@mixin for-phone-only {
+		@media (max-width: 599px) {
+			@content;
+		}
+	}
+	@mixin for-tablet-portrait-up {
+		@media (min-width: 600px) {
+			@content;
+		}
+	}
+	@mixin for-tablet-landscape-up {
+		@media (min-width: 900px) {
+			@content;
+		}
+	}
+	@mixin for-desktop-up {
+		@media (min-width: 1200px) {
+			@content;
+		}
+	}
+	@mixin for-big-desktop-up {
+		@media (min-width: 1800px) {
+			@content;
+		}
+	}
 	.title {
 		grid-column: 2;
 	}
@@ -34,6 +59,15 @@
 		margin-top: 15px;
 		display: grid;
 		grid-template-columns: 15px 1fr 15px;
+
+		@include for-tablet-portrait-up() {
+			grid-template-columns: 15% 1fr 15%;
+		}
+
+		// @include for-desktop-up() {
+		// 	grid-template-columns: 15px 1fr 1fr 15px;
+		// 	column-gap: 15px;
+		// }
 	}
 	.domains {
 		border-radius: 12px;
