@@ -16,6 +16,7 @@ export const POST: RequestHandler = async ({ params, request }) => {
     const postedRecords = [];
     for (const record of records) {
         if (record.id !== undefined) {
+            // TODO Potential security issue, investigate behaviour when adding ID that is not your record
             postedRecords.push(await updateRecordById(record.id, record));
         } else {
             postedRecords.push(await createRecordByTld(params.domain, record));

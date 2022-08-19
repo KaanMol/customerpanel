@@ -78,7 +78,6 @@ enum DnsRecordType {
     SPF
     SRV
     TXT
-    NS
     TLSA
     SSHFP
     CAA

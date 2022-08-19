@@ -38,6 +38,7 @@
 		"@fontsource/fira-mono": "^4.5.0",
 		"@prisma/client": "^4.1.1",
 		"axios": "^0.27.2",
-		"cookie": "^0.4.1"
+		"cookie": "^0.4.1",
+		"zod": "^3.18.0"
 	}
 }

@@ -23,8 +23,7 @@ export const GET: RequestHandler = async ({ locals }) => {
 
         if (zone.records !== undefined) {
             for (const record of zone.records) {
-                console.log(record.type)
-                console.log(DnsRecordType[record.type as keyof typeof DnsRecordType])
+                if (record.type === "NS" || record.type === "SOA") continue;
                 await prisma.records.create({
                     data: {
                         name: record.name,

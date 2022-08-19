@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import axios from 'axios';
+	import { DnsRecordType } from '@prisma/client';
 
 	type Record = {
 		id?: number;
@@ -63,27 +64,36 @@
 		{#each $recordsStore as record, i}
 			<div class="record">
 				<div class="row name">
-					<span>Name</span>
+					<span class="label">Name</span>
 					<input title="name" bind:value={record.name} />
 				</div>
 
 				<div class="row type">
-					<span>Type</span>
-					<input bind:value={record.type} />
+					<span class="label">Type</span>
+					<select value={record.type}>
+						{#each Object.values(DnsRecordType) as recordType}
+							<option value={recordType}>
+								{recordType}
+							</option>
+						{/each}
+					</select>
 				</div>
 
 				<div class="row ttl">
-					<span>TTL</span>
+					<span class="label">TTL</span>
 					<input bind:value={record.ttl} />
 				</div>
 
 				<div class="row value">
-					<span>Value</span>
+					<span class="label">Value</span>
 					<input bind:value={record.value} />
 				</div>
 
 				<div class="row remove">
-					<button on:click={() => removeRecord(i, record)}>Remove Record</button>
+					<button on:click={() => removeRecord(i, record)}>
+						<span class="icon material-icons">delete</span>
+						<span class="text">Remove record</span>
+					</button>
 				</div>
 			</div>
 		{/each}
@@ -154,7 +164,7 @@
 				& > div {
 					box-sizing: border-box;
 					width: 100%;
-					span {
+					span.label {
 						font-weight: bold;
 						margin-bottom: 5px;
 						opacity: 0.7;
@@ -181,6 +191,22 @@
 					&.add-record {
 						grid-column: span auto / -1;
 					}
+
+					button {
+						border-radius: 8px;
+						padding: 8px;
+						color: #ff7f77;
+						border: none;
+						outline: 0;
+						background: rgba(255, 255, 255, 0.1);
+						display: flex;
+						gap: 15px;
+						justify-content: center;
+
+						.text {
+							align-self: center;
+						}
+					}
 				}
 			}
 
@@ -199,6 +225,10 @@
 						}
 						&.type {
 							grid-column: unset;
+						}
+
+						.text {
+							display: none;
 						}
 					}
 				}
