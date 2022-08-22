@@ -1,9 +1,10 @@
-import { prisma } from "../../common/database";
+import { prisma } from "../../../common/database";
 import type { RequestHandler } from "@sveltejs/kit";
-import { openProvider } from "../../../openprovider/src";
+import { openProvider } from "../../../../openprovider/src";
 import { DnsRecordType, DomainExtensions } from "@prisma/client";
+import { json } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ locals }) => {
+export const GET: RequestHandler = async () => {
     await prisma.domain.deleteMany({})
     await prisma.records.deleteMany({})
     const result = (await openProvider.dns.zone.list({
@@ -41,7 +42,5 @@ export const GET: RequestHandler = async ({ locals }) => {
         }
     }
 
-    return {
-        body: await prisma.domain.findMany()
-    }
+    return json(await prisma.domain.findMany());
 };

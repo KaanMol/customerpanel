@@ -1,14 +1,13 @@
+import { json } from '@sveltejs/kit';
 import type { RequestHandler } from "@sveltejs/kit";
-import { createRecordByTld, deleteRecordById, getRecordsByTld, updateRecordById } from "../../../handlers/domains";
-import { page } from '$app/stores';
-import { openProvider } from "../../../../openprovider/src";
-import { prisma } from "@prisma/client";
+import { createRecordByTld, deleteRecordById, getRecordsByTld, updateRecordById } from "../../../../handlers/domains";
+import { openProvider } from "../../../../../openprovider/src";
+import type DnsRecord from '$lib/dns/DnsRecord.svelte';
 
 export const GET: RequestHandler = async ({ params }) => {
     const result = await getRecordsByTld(params.domain);
-    return {
-        body: result
-    };
+
+    return json({ ...result });
 };
 
 export const POST: RequestHandler = async ({ params, request }) => {
@@ -25,7 +24,7 @@ export const POST: RequestHandler = async ({ params, request }) => {
 
     setTimeout(async () => {
         try {
-            records.map(record => {
+            records.map((record: DnsRecord) => {
                 record.name = record.name.replace(params.domain, "");
                 return record;
             });
@@ -36,9 +35,7 @@ export const POST: RequestHandler = async ({ params, request }) => {
 
     }, 1);
 
-    return {
-        body: postedRecords
-    };
+    return json(postedRecords);
 };
 
 export const DELETE: RequestHandler = async ({ params, request }) => {
@@ -62,7 +59,5 @@ export const DELETE: RequestHandler = async ({ params, request }) => {
 
     }, 1)
 
-    return {
-        body: true
-    }
+    return json({ success: true });
 }

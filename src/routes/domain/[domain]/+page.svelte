@@ -6,6 +6,7 @@
 	import { goto } from '$app/navigation';
 	import axios from 'axios';
 	import { DnsRecordType } from '@prisma/client';
+	import type { PageData } from './$types';
 
 	type Record = {
 		id?: number;
@@ -15,11 +16,11 @@
 		ttl: number;
 	};
 
-	export let records: Record[];
+	export let data: PageData;
 
 	onMount(() => {
 		console.log($recordsStore);
-		recordsStore.update((val) => records);
+		recordsStore.update((val) => data.records);
 		console.log($recordsStore);
 	});
 

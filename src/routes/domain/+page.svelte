@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { each } from 'svelte/internal';
 	import { goto } from '$app/navigation';
-
+	import type { PageData } from './$types';
 	type Domain = {
 		name: string;
 		extension: string;
@@ -12,13 +12,13 @@
 		};
 	};
 
-	export let domains: Domain[];
+	export let data: PageData;
 </script>
 
 <div class="page">
 	<div class="title">Domains</div>
 	<div class="domains">
-		{#each domains as domain}
+		{#each data.domains as domain}
 			<div class="domain" on:click={() => goto(`/domain/${domain.name}.${domain.extension}`)}>
 				{domain.name}.{domain.extension}
 			</div>
