@@ -39,11 +39,15 @@ export async function createRecordByTld(_tld: string, record: { name: string, ty
 
     return await prisma.records.create({
         data: {
-            domainId: domain?.id,
             name: record.name,
             type: DnsRecordType[record.type as keyof typeof DnsRecordType],
             value: record.value,
-            ttl: record.ttl
+            ttl: record.ttl,
+            Domain: {
+                connect: {
+                    id: domain?.id
+                }
+            }
         }
     })
 }
