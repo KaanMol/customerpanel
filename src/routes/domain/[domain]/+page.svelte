@@ -71,7 +71,7 @@
 
 				<div class="row type">
 					<span class="label">Type</span>
-					<select value={record.type}>
+					<select bind:value={record.type}>
 						{#each Object.values(DnsRecordType) as recordType}
 							<option value={recordType}>
 								{recordType}
@@ -98,15 +98,22 @@
 				</div>
 			</div>
 		{/each}
+		<div class="record">
+			<button class="new-record" on:click={addRecord}>
+				<span class="icon material-icons">add</span>
+				<span class="new-record-text">Add record</span>
+			</button>
+		</div>
 
 		<div class="record">
 			<button class="row add-record" on:click={updateRecords}>Apply Changes</button>
-			<button class="row new-record" on:click={addRecord}>Add record</button>
 		</div>
 	</div>
 </div>
 
 <style lang="scss">
+	@import '../../../colors.scss';
+
 	@mixin for-phone-only {
 		@media (max-width: 599px) {
 			@content;
@@ -151,6 +158,13 @@
 			margin-bottom: 15px;
 			padding: 15px;
 
+			.new-record {
+				// box-sizing: content-box;
+				// margin: 15px;
+				grid-column: 1/-1;
+				width: 100%;
+			}
+
 			.record {
 				color: white;
 				background: #161618;
@@ -185,15 +199,24 @@
 						grid-column: 1;
 					}
 
-					&.new-record {
-						grid-column: span auto / -1;
-					}
+					// &.new-record {
+					// 	background: var(--secondary-color);
+					// 	grid-column: span auto / -1;
+					// }
 
 					&.add-record {
+						padding: 10px;
+						border-radius: 12px;
+						font-weight: bold;
+						// letter-spacing: 1px;
+						background: var(--primary-color);
+						color: var(--opposite-color);
 						grid-column: span auto / -1;
+						justify-self: right;
 					}
 
-					button {
+					button,
+					select {
 						border-radius: 8px;
 						padding: 8px;
 						color: #ff7f77;
@@ -208,6 +231,10 @@
 							align-self: center;
 						}
 					}
+
+					select {
+						font-weight: bold;
+					}
 				}
 			}
 
@@ -219,6 +246,21 @@
 					background: none;
 					border-radius: 0;
 					grid-template-columns: 2fr 1fr 1fr 2fr min-content;
+
+					.new-record {
+						padding: 15px;
+						border-radius: 12px;
+						background: rgba(255, 255, 255, 0.1);
+						width: 100%;
+						display: flex;
+						gap: 10px;
+						justify-content: center;
+						align-items: center;
+						& .new-record-text {
+							margin-top: 2px;
+						}
+					}
+
 					.row {
 						grid-column: unset;
 						&.ttl {

@@ -39,6 +39,7 @@
 		"@prisma/client": "^4.1.1",
 		"axios": "^0.27.2",
 		"cookie": "^0.4.1",
+		"the-new-css-reset": "^1.7.3",
 		"zod": "^3.18.0"
 	}
 }

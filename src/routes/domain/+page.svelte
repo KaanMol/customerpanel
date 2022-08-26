@@ -63,11 +63,6 @@
 		@include for-tablet-portrait-up() {
 			grid-template-columns: 15% 1fr 15%;
 		}
-
-		// @include for-desktop-up() {
-		// 	grid-template-columns: 15px 1fr 1fr 15px;
-		// 	column-gap: 15px;
-		// }
 	}
 	.domains {
 		border-radius: 12px;

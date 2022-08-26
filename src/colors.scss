@@ -1,0 +1,31 @@
+:root {
+	--background: white;
+	--primary-color: #e65a06;
+	--secondary-color: #e7ac06;
+	--color: black;
+	--opposite-color: white;
+	--logo-png: url('./lib/logo-dark.png');
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: black;
+		--primary-color: #fb9b61;
+		--secondary-color: #fbd362;
+		--color: #e0e0e0;
+		--opposite-color: #252525;
+		--logo-png: url('./lib/logo-white.png');
+	}
+}
+
+// DEFAULT: '#FBD362',
+// '50': '#FFFAED',
+// '100': '#FEF4D9',
+// '200': '#FDE9B2',
+// '300': '#FCDE8A',
+// '400': '#FBD362',
+// '500': '#FAC42B',
+// '600': '#E7AC06',
+// '700': '#B08304',
+// '800': '#7A5B03',
+// '900': '#433202'

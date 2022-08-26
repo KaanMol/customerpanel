@@ -5,7 +5,9 @@ import preprocess from 'svelte-preprocess';
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
-	preprocess: preprocess(),
+	preprocess: preprocess({
+        scss: { renderSync: true, includePaths: ['src', 'node_modules'] },
+      }),
 
 	kit: {
 		adapter: adapter(),

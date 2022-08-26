@@ -5,6 +5,6 @@ export const load: PageServerLoad = async ({ locals }) => {
     const response = await getDomainList();
 
     return {
-    domains: response
-};
+        domains: response
+    };
 };
